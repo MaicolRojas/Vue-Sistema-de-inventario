@@ -10,8 +10,9 @@ import '../src/dist/js/adminlte.min.js'
 import './dist/js/demo.js'
 
 
+
 import"../src/plugins/datatables/jquery.dataTables.min.js"
-//mport"../src/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"
+//import"../src/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"
 //import"../src/plugins/datatables-responsive/js/dataTables.responsive.min.js"
 //import"../src/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"
 import"../src/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"

@@ -28,6 +28,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../components/Login.vue')
   }
 
+
 ]
 
 

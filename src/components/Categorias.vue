@@ -283,7 +283,8 @@
                                         <th>Id_categoria</th>
                                         <th>Categoria</th>
                                         <th>Fecha(s)</th>
-                                        <!--<th>Botones(s)</th>-->
+                                        <th>Editar</th>
+                                        <th>Eliminar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -293,6 +294,8 @@
                                         <th>Id_categoria</th>
                                         <th>Categoria</th>
                                         <th>Fecha(s)</th>
+                                         <th>Editar</th>
+                                        <th>Eliminar</th>
                                     </tr>
                                 </tfoot>
                                 </table>
@@ -437,6 +440,7 @@ import $  from 'jquery';
 
 
 export default {
+   
   mounted() {
     this.getUsers();
   },
@@ -445,19 +449,34 @@ export default {
       axios
         .get("https://sistema-control-inventario.herokuapp.com/categoria/")
         .then((response) => {
-          var table = $("#example1").DataTable({
-                  "responsive": true, "lengthChange": true, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+           $("#example1").DataTable({
+               "responsive": true, "lengthChange": true, "autoWidth": false,
+                "buttons": [/*"copy",*/ "csv", "excel",  "print"],
            "language":lenguaje_español,
             data: response.data,
             columns: [
-              { data: "id_categoria" },
+              { data : "id_categoria",},
               { data: "categoria" },
               { data: "fecha" },
-             // { defaultContent : '<button type="button" class="editar btn btn-primary"><i class = "fa fa-pencil-alt"></i></button> &nbsp;&nbsp;&nbsp;<button type="button" class="eliminar btn btn-danger" data-toggle="modal" data-target="#modalEliminar"><i class="fas fa-dumpster-fire"></i></button>'}
+              {
+                  data : "id_categoria",
+                  render : function(data){
+                      return '<button data-id="" type="button" class="editar btn btn-primary"><i class = "fa fa-pencil-alt"></i></button>';
+                         
+                      
+                  },
+              },
+              {
+                  data : "id_categoria",
+                  render : function(data){
+                      return '<button type="button" class="eliminar btn btn-danger" data-toggle="modal" data-target="#modalEliminar"><i class="fas fa-dumpster-fire"></i></button>';
+                         
+                      
+                  },
+              }
+              //{ defaultContent : '<button type="button" class="editar btn btn-primary"><i class = "fa fa-pencil-alt"></i></button> &nbsp;&nbsp;&nbsp;<button type="button" class="eliminar btn btn-danger" data-toggle="modal" data-target="#modalEliminar"><i class="fas fa-dumpster-fire"></i></button>'},
               
             ],
-             
           }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)')
            //obtener_data_editar('',table);
         }).catch((error) => console.log(error.response));
@@ -499,11 +518,11 @@ var lenguaje_español = {
 
 
 <style scoped>
-/*
+
 @import url('../../src/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');
 @import url('../../src/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');
 @import url("../../src/plugins/datatables-buttons/css/buttons.bootstrap4.min.css");
-*/
+
 
 
 
