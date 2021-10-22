@@ -18,9 +18,12 @@
     "datatables.net-responsive": "^2.2.9",
     "jquery": "^3.6.0",
     "jszip": "^3.7.1",
+    "mixins": "^0.0.1",
     "pdfmake": "^0.2.2",
+    "sweetalert2": "^11.1.9",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "vue-sweetalert2": "^5.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

@@ -11,14 +11,15 @@ import './dist/js/demo.js'
 
 
 
-import"../src/plugins/datatables/jquery.dataTables.min.js"
+//import"../src/plugins/datatables/jquery.dataTables.min.js"
 //import"../src/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"
 //import"../src/plugins/datatables-responsive/js/dataTables.responsive.min.js"
 //import"../src/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"
-import"../src/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"
+//import"../src/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"
 
-
+/*
 import '../src/plugins/datatables/jquery.dataTables.min.js';
+
 import '../src/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js';
 import '../src/plugins/datatables-responsive/js/dataTables.responsive.min.js';
 import '../src/plugins/datatables-responsive/js/responsive.bootstrap4.min.js';
@@ -34,7 +35,11 @@ import '../src/plugins/fontawesome-free/css/all.min.css';
 import '../src/plugins/datatables-responsive/css/responsive.bootstrap4.min.css';
 import "datatables.net-bs4/css/dataTables.bootstrap4.min.css";
 
+*/
 
+
+import swal from 'sweetalert2';
+window.Swal = swal;
 
 
 

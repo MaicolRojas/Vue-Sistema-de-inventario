@@ -144,16 +144,7 @@
             <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
                 <li class="header1">NAVEGACIÓN PRINCIPAL</li>
-               <li class="nav-item">
-                     <router-link to="/" class="nav-link" exact>
-                        <i class="nav-icon fas fa-user-astronaut"></i>
-                        <p>
-                            Usuarios
-                            <span class="badge badge-info right">New</span>
-                        </p>
-                    </router-link>
-                   
-               </li>
+               
                 <li class="nav-item">
                      <router-link to="/" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
@@ -164,15 +155,24 @@
                     </router-link>
                    
                </li>
-                
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                     <router-link to="/usuarios" class="nav-link" exact>
+                        <i class="nav-icon fas fa-user-astronaut"></i>
+                        <p>
+                            Usuarios
+                            <span class="badge badge-info right">New</span>
+                        </p>
+                    </router-link>
+                   
+               </li>
+                <li class="nav-item">
+                    <router-link to="/categorias" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Categorias  
                             <span class="badge badge-info right">New</span>
                         </p>
-                    </a>
+                   </router-link>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
@@ -183,14 +183,14 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class=" nav-icon fas fa-user-tie"> </i>
+                 <li class="nav-item">
+                    <router-link to="/clientes" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
                         <p>
                             Clientes  
                             <span class="badge badge-info right">New</span>
                         </p>
-                    </a>
+                   </router-link>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
@@ -262,7 +262,7 @@
                     <!-- TARJETA PRINCIPAL -->
                     <div class="card">
                         <div class="card-header">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarCategoria">
+                            <button class="btn btn-primary" @click="modificar=false; abrirModal()">
                                 Agregar Categorías
                             </button>
 
@@ -277,25 +277,34 @@
                         </div>
                         <!---TARJETA DEL CUERPO -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped responsive">
+                            <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Id_categoria</th>
                                         <th>Categoria</th>
                                         <th>Fecha(s)</th>
-                                        <th>Editar</th>
-                                        <th>Eliminar</th>
+                                        <th colspan="2" class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr v-for= "cat in categorias" :key="cat.id_categoria">
+                                        <th>{{cat.id_categoria}}</th>
+                                        <td>{{cat.categoria}}</td>
+                                        <td>{{cat.fecha}}</td>
+                                        <td class="text-center">
+                                            <button @click="modificar=true; abrirModal(cat)" type="button" class="editar btn btn-primary"><i class = "fa fa-pencil-alt"></i></button>
+                                        </td>
+                                        <td class="text-center">
+                                            <button @click="eliminar(cat.id_categoria,cat.categoria)" type="button" class="eliminar btn btn-danger" data-toggle="modal" data-target="#modalEliminar"><i class="fas fa-dumpster-fire"></i></button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>Id_categoria</th>
                                         <th>Categoria</th>
                                         <th>Fecha(s)</th>
-                                         <th>Editar</th>
-                                        <th>Eliminar</th>
+                                        <th colspan="2" class="text-center">Acciones</th>
                                     </tr>
                                 </tfoot>
                                 </table>
@@ -330,26 +339,24 @@
             <!-- FIN BARRA LATERAL DEL CONTRO -->
         </div>
 
-
 <!--=====================================
-MODAL AGREGAR USUARIO
+MODAL AGREGAR CATEGORIAS
 ======================================-->
 
-<div id="modalAgregarCategoria" class="modal" role="dialog">
+<div class="modal" :class="{mostrar:modal}">
   
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog" >
 
     <div class="modal-content">
-
-      <form role="form" method="#">
 
         <!--=====================================
         CABEZA DEL MODAL
         ======================================-->
 
         <div class="modal-header" style="background:#3c8dbc; color:white">
-            <h5 class="modal-title">Agregar Categorías</h5>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 class="modal-title ">{{tituloModal}}</h5>
+
+          <button @click="cerrarModal();" type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
         <!--=====================================
@@ -364,9 +371,8 @@ MODAL AGREGAR USUARIO
             
             <div class="form-group">
               <div class="input-group mb-3">
-                  <span class="input-group-text"><i class="nav-icon fas fa-th"></i></span> 
-                <input type="text" class="form-control input-lg" name="nuevoCategoria" placeholder="Ingresar Categoría" required>
-
+                  <span class="input-group-text" for="categoria"><i class="nav-icon fas fa-th"></i></span> 
+                <input v-model="categoriadatos.categoria" type="text" class="form-control input-lg" id="categoria"  placeholder="Ingresar Categoría" required>
               </div>
             </div>
 
@@ -381,13 +387,11 @@ MODAL AGREGAR USUARIO
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+          <button @click="cerrarModal();" type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Guardar Categoría</button>
+          <button @submit="checkForm" @click="guardar();" type="submit" class="btn btn-primary">Guardar Categoría</button>
 
         </div>
-
-      </form>
 
     </div>
 
@@ -395,41 +399,15 @@ MODAL AGREGAR USUARIO
 
 </div>
 
+
+
+
     
 </body>
 
-    
      <router-view/>
 </template>
 
-
-
-
-
-/*import '../plugins/datatables/jquery.dataTables.min.js'
-import '../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'
-import '../plugins/datatables-responsive/js/dataTables.responsive.min.js'
-import '../plugins/datatables-responsive/js/responsive.bootstrap4.min.js'
-import '../plugins/datatables-buttons/js/dataTables.buttons.min.js'
-import '../plugins/datatables-buttons/js/buttons.bootstrap4.min.js'
-import '../plugins/datatables-buttons/js/buttons.html5.min.js'
-import '../plugins/datatables-buttons/js/buttons.print.min.js'
-import '../plugins/datatables-buttons/js/buttons.colVis.min.js'
-
-
-import"../plugins/pdfmake/pdfmake.min.js"
-import"../plugins/pdfmake/vfs_fonts.js"
-
-import axios from 'axios';
-//import $ from 'jquery'
-
-const $ = require('jquery')
-
-
-export default {
-   
-}
-*/
 
 
 <script>
@@ -439,79 +417,122 @@ import axios from "axios";
 import $  from 'jquery';
 
 
+
 export default {
-   
-  mounted() {
-    this.getUsers();
-  },
-  methods: {
-    getUsers() {
-      axios
-        .get("https://sistema-control-inventario.herokuapp.com/categoria/")
-        .then((response) => {
-           $("#example1").DataTable({
-               "responsive": true, "lengthChange": true, "autoWidth": false,
-                "buttons": [/*"copy",*/ "csv", "excel",  "print"],
-           "language":lenguaje_español,
-            data: response.data,
-            columns: [
-              { data : "id_categoria",},
-              { data: "categoria" },
-              { data: "fecha" },
-              {
-                  data : "id_categoria",
-                  render : function(data){
-                      return '<button data-id="" type="button" class="editar btn btn-primary"><i class = "fa fa-pencil-alt"></i></button>';
-                         
-                      
-                  },
-              },
-              {
-                  data : "id_categoria",
-                  render : function(data){
-                      return '<button type="button" class="eliminar btn btn-danger" data-toggle="modal" data-target="#modalEliminar"><i class="fas fa-dumpster-fire"></i></button>';
-                         
-                      
-                  },
-              }
-              //{ defaultContent : '<button type="button" class="editar btn btn-primary"><i class = "fa fa-pencil-alt"></i></button> &nbsp;&nbsp;&nbsp;<button type="button" class="eliminar btn btn-danger" data-toggle="modal" data-target="#modalEliminar"><i class="fas fa-dumpster-fire"></i></button>'},
-              
-            ],
-          }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)')
-           //obtener_data_editar('',table);
-        }).catch((error) => console.log(error.response));
-       
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title = to.meta.title || 'Categorias';
+            }
+        },
     },
-    
-  },
-};
+    data() {
+        return{
+            categoriadatos: {
+                categoria: '',
+            },
+            id: 0,
+            modificar: true,
+            modal: 0,
+            tituloModal: '',
+            categorias:[],
+        }
+    },
+    methods: {
+        async listar(){
+            const res = await axios.get('https://sistema-control-inventario.herokuapp.com/categoria/');
+            this.categorias = res.data;
 
-var obtener_data_editar = function(tbody,table){
-    $(tbody).on("click", "button.editar", function(){
-        var data = table.row($(this).parent('tr')).data();
-        console.log(data)
-    })
-}
+        },
+        async eliminar(id, categoria){
+            Swal.fire({
+                title: '¿Está seguro de borrar la categoria: '+categoria+' ?',
+                text: "¡Si no lo está puede cancelar la accíón!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si!, Eliminar categoria!',
+                cancelButtonText: '¡Cancelar!'
+                }).then((result) => {
+                    this.listar();
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'La categoría ha sido borrado correctamente!',
+                    '',
+                    'success'
+                    )
+                     const res =  axios.delete('https://sistema-control-inventario.herokuapp.com/categoria/'+id+"/");
+                     this.listar();
+                }
+                })
+        },
+        async guardar(){
+            try{
+                if(this.modificar){
 
-var lenguaje_español = {
-     sProcessing:     "Procesando...",
-                sLengthMenu:     "Mostrar _MENU_ registros",
-                sZeroRecords:    "No se encontraron resultados",
-                sEmptyTable:     "Ningún dato disponible en esta tabla",
-                sInfo:           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                sInfoEmpty:      "Mostrando registros del 0 al 0 de un total de 0",
-                sInfoFiltered:   "(filtrado de un total de _MAX_ registros)",
-                sInfoPostFix:    "",
-                sSearch:         "Buscar:",
-                sUrl:           "",
-                sInfoThousands:  ",",
-                sLoadingRecords: "Cargando...",
-                oPaginate: {
-                sFirst:    "Primero",
-                sLast:     "Último",
-                sNext:     "Siguiente",
-                sPrevious: "Anterior"
-                },
+                    const res = await axios.put('https://sistema-control-inventario.herokuapp.com/categoria/'+this.id+' /',this.categoriadatos)
+                    Swal.fire({
+                    position: '',
+                        icon: 'success',
+                        title: 'Categoría Editada correctamente',
+                        showConfirmButton: true,
+                    }).then((result) => {
+                        this.categorias = res.data;
+                        this.cerrarModal();
+                        this.listar();
+                    })
+
+                }else{
+                    const res = await  axios.post('https://sistema-control-inventario.herokuapp.com/categoria/',
+                    this.categoriadatos);
+                    Swal.fire({
+                    position: '',
+                        icon: 'success',
+                        title: 'Categoría Agregada correctamente',
+                        showConfirmButton: true,
+                    }).then((result) => {
+                        this.categorias = res.data;
+                        this.cerrarModal();
+                        this.listar();
+                    })
+                      
+                }
+            }catch(error){
+                Swal.fire({
+                    position: '',
+                        icon: 'info',
+                        title: '¡' + error + "!",
+                        showConfirmButton: true,
+                    })
+            }
+           
+        },
+        abrirModal(data={}){
+            this.modal = 1;
+            if(this.modificar){
+                this.id = data.id_categoria
+                this.tituloModal = "Modificar Categoría"
+                this.categoriadatos.categoria = data.categoria
+
+            }else{
+                this.id = 0
+                this.tituloModal = "Agregar Categoría"
+                this.categoriadatos.categoria = ''
+            }
+        },
+        cerrarModal(){
+            this.modal = 0;
+        }
+
+
+    },
+
+    created() {
+        this.listar();
+    }
+   
 }
 </script>
 
@@ -529,6 +550,13 @@ var lenguaje_español = {
 @import '../../src/plugins/fontawesome-free/css/all.min.css';
 @import '../../src/dist/css/adminlte.min.css';
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback");
+
+.mostrar{
+    display: list-item;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.5);
+    
+}
 
 .header1{
     -webkit-text-size-adjust: 100%;

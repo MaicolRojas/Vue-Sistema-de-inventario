@@ -144,9 +144,9 @@
             <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
                 <li class="header1">NAVEGACIÓN PRINCIPAL</li>
-                
+               
                 <li class="nav-item">
-                     <router-link to="/" class="nav-link" exact>
+                     <router-link to="/" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             Inicio
@@ -155,7 +155,7 @@
                     </router-link>
                    
                </li>
-                <li class="nav-item">
+               <li class="nav-item">
                      <router-link to="/usuarios" class="nav-link" exact>
                         <i class="nav-icon fas fa-user-astronaut"></i>
                         <p>
@@ -165,6 +165,7 @@
                     </router-link>
                    
                </li>
+                
                 <li class="nav-item">
                     <router-link to="/categorias" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
@@ -183,7 +184,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                 <li class="nav-item">
                     <router-link to="/clientes" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
@@ -243,12 +244,12 @@
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Inicio</h1>
+                                <h1>Usuarios</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                                    <li class="breadcrumb-item active">Reporte de ventas</li>
+                                    <li class="breadcrumb-item active"></li>
                                 </ol>
                             </div>
                         </div>
@@ -262,7 +263,9 @@
                     <!-- TARJETA PRINCIPAL -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Title</h3>
+                            <button class="btn btn-primary" @click="modificar=false; abrirModal()">
+                                Agregar Usuarios
+                            </button>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -274,8 +277,56 @@
                             </div>
                         </div>
                         <!---TARJETA DEL CUERPO -->
-                        <div class="card-body">
-                            Start creating your amazing application!
+                        <div class="card-body table-responsive">
+                            <table id="example1" class="table table-bordered table-striped table-responsive-lg">
+                                <thead>
+                                    <tr>
+                                        <th>id_cliente</th>
+                                        <th>nombre</th>
+                                        <th>documento</th>
+                                        <th>email</th>
+                                        <th>telefono</th>
+                                        <th>dirección</th>
+                                        <th>fecha_nacimiento</th>
+                                        <th>compras</th>
+                                         <th>compras</th>
+                                        <th colspan="2" class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for= "cli in clientes" :key="cli.id_cliente">
+                                        <th>{{cli.id_cliente}}</th>
+                                        <td>{{cli.nombre}}</td>
+                                        <td>{{cli.documento}}</td>
+                                        <td>{{cli.email}}</td>
+                                        <td>{{cli.telefono}}</td>
+                                        <td>{{cli.direccion}}</td>
+                                        <td>{{cli.fecha_nacimiento}}</td>
+                                        <td>{{cli.compras}}</td>
+                                        <td>{{cli.Ultima_compra}}</td>
+                                        <td class="text-center">
+                                            <button @click="modificar=true; abrirModal(cli)" type="button" class="editar btn btn-primary"><i class = "fa fa-pencil-alt"></i></button>
+                                        </td>
+                                        <td class="text-center">
+                                            <button @click="eliminar(cli.id_cliente,cli.nombre)" type="button" class="eliminar btn btn-danger" data-toggle="modal" data-target="#modalEliminar"><i class="fas fa-dumpster-fire"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>id_cliente</th>
+                                        <th>nombre</th>
+                                        <th>documento</th>
+                                        <th>email</th>
+                                        <th>telefono</th>
+                                        <th>dirección</th>
+                                        <th>fecha_nacimiento</th>
+                                        <th>compras</th>
+                                         <th>compras</th>
+                                        <th colspan="2" class="text-center">Acciones</th>
+                                    </tr>
+                                </tfoot>
+                                </table>
                         </div>
                         <!--- FIN TARJETA DEL CUERPO -->
                         <!---TARJETA DEL PIE DE PAGINA -->
@@ -290,6 +341,8 @@
             </div>
             <!-- FIN ENVOLTURA DE CONTENIDO.-->
             <!--FOOTER-->
+
+            
             <footer class="main-footer">
                 <div class="float-right d-none d-sm-block">
                     <b>Version</b> 1.0
@@ -304,28 +357,324 @@
             </aside>
             <!-- FIN BARRA LATERAL DEL CONTRO -->
         </div>
-    </body>
+
+<!--=====================================
+MODAL AGREGAR USUARIO
+======================================-->
+
+<div class="modal" :class="{mostrar:modal}">
+  
+  <div class="modal-dialog" >
+
+    <div class="modal-content">
+
+        <!--=====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+        <div class="modal-header" style="background:#3c8dbc; color:white">
+            <h5 class="modal-title ">{{tituloModal}}</h5>
+
+          <button @click="cerrarModal();" type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!--=====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+
+          <div class="box-body">
+
+            <!-- ENTRADA PARA EL NOMBRE -->
+
+          <div class="form-group">
+            
+            <div class="input-group">
+            
+            <span class="input-group-text" for="nombre"><i class="fa fa-user"></i></span>
+
+            <input v-model="clientedatos.nombre" class="form-control input-lg" type="txt" name="nuevoNombre" placeholder="Ingresar Nombre" id="nombre" required>
+
+            </div> 
+
+          </div>
+
+            <!-- ENTRADA PARA EL DOCUMENTO -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-text" for ="documento"><i class="fa fa-key"></i></span> 
+
+                <input  v-model="clientedatos.documento"  id="documento" type="number"  class="form-control input-lg" name="nuevoDocumentoId" placeholder="Ingresar Documento" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL EMAIL -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-text" for="email"><i class="fa fa-envelope"></i></span> 
+
+                <input   v-model="clientedatos.email" id="email" type="email" class="form-control input-lg" name="nuevoEmail" placeholder="Ingresar Email" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL TELEFONO -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-text" for="telefono"><i class="fa fa-phone"></i></span> 
+
+                <input  v-model="clientedatos.telefono" type="text" id= "telefo" class="form-control input-lg" name="nuevoTelefono" placeholder="Ingresar Telefono" data-inputmask="'mask':'(999) 999-999'" data-mask required>
+
+              </div>
+
+            </div>
+
+             <!-- ENTRADA PARA LA DIRECCION -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-text" for="direccion"><i class="fa fa-map-marker"></i></span> 
+
+                <input t v-model="clientedatos.direccion" ype="text" id="direccion" class="form-control input-lg" name="nuevaDireccion" placeholder="Ingresar Direccion" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA LA FECHA DE NACIMIENTO -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-text" for="fecha_nacimiento"><i class="fa fa-calendar"></i></span> 
+
+                <input  v-model="clientedatos.fecha_nacimiento" type="date" id="fecha_nacimiento" class="form-control input-lg" name="nuevaFechaNacimiento" placeholder="Ingresar Fecha de Nacimiento" data-inputmask="'alias':'yyyy/mm/dd'" data-mask required>
+
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+
+           
+        <!--=====================================
+        PIE DEL MODAL
+        ======================================-->
+
+        <div class="modal-footer">
+
+          <button @click="cerrarModal();" type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+
+          <button @submit="checkForm" @click="guardar();" type="submit" class="btn btn-primary">Guardar cliente</button>
+
+        </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+    
+</body>
+
      <router-view/>
 </template>
 
 
+
 <script>
+
+import axios from "axios";
+
+import $  from 'jquery';
+
+
+
 export default {
     watch: {
         $route: {
             immediate: true,
             handler(to, from) {
-                document.title = to.meta.title || 'Inicio';
+                document.title = to.meta.title || 'Clientes';
             }
         },
     },
+    data() {
+        return{
+            clientedatos:{
+                nombre: "",
+                documento: "",
+                email: "",
+                telefono: "",
+                direccion: "",
+                fecha_nacimiento:"",
+
+            },
+         
+            id: 0,
+            modificar: true,
+            modal: 0,
+            tituloModal: '',
+            clientes:[],
+            
+
+        }
+    },
+    methods: {
+        async listar(){
+            const res = await axios.get('https://sistema-control-inventario.herokuapp.com/clientes/');
+            this.clientes = res.data;
+
+        },
+        async eliminar(id, cliente){
+            Swal.fire({
+                title: '¿Está seguro de borrar al Cliente: '+cliente+' ?',
+                text: "¡Si no lo está puede cancelar la accíón!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si!, Eliminar Cliente!',
+                cancelButtonText: '¡Cancelar!'
+                }).then((result) => {
+                    this.listar();
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'El Cliente ha sido borrado correctamente!',
+                    '',
+                    'success'
+                    )
+                     const res =  axios.delete('https://sistema-control-inventario.herokuapp.com/clientes/'+id+"/");
+                     this.cerrarModal();
+                     this.listar();
+                }
+                })
+        },
+        async guardar(){
+            try{
+                if(this.modificar){
+
+                    const res = await axios.put('https://sistema-control-inventario.herokuapp.com/clientes/'+this.id+' /',this.clientedatos)
+                    Swal.fire({
+                    position: '',
+                        icon: 'success',
+                        title: 'Usuario Editado correctamente',
+                        showConfirmButton: true,
+                    }).then((result) => {
+                        this.usuarios = res.data;
+                        this.cerrarModal();
+                        this.listar();
+                    })
+
+                }else{
+                    const res = await  axios.post('https://sistema-control-inventario.herokuapp.com/clientes/',
+                    this.clientedatos);
+                    Swal.fire({
+                    position: '',
+                        icon: 'success',
+                        title: 'Usuario Agregado correctamente',
+                        showConfirmButton: true,
+                    }).then((result) => {
+                        this.ususarips = res.data;
+                        this.cerrarModal();
+                        this.listar();
+                    })
+                     this.listar();
+                      
+                }
+            }catch(error){
+                Swal.fire({
+                    position: '',
+                        icon: 'info',
+                        title: '¡' + error + "!",
+                        showConfirmButton: true,
+                    })
+            }
+           
+        },
+        abrirModal(data={}){
+            this.modal = 1;
+            if(this.modificar){
+                this.id = data.id_cliente
+                this.tituloModal = "Modificar Clientes"
+                this.clientedatos.nombre = data.nombre
+                this.clientedatos.documento = data.documento
+                this.clientedatos.email = data.email
+                this.clientedatos.telefono = data.telefono
+                this.clientedatos.direccion = data.direccion
+                this.clientedatos.fecha_nacimiento =  data.fecha_nacimiento
+               
+
+            }else{
+                this.id = 0
+                this.tituloModal = "Agregar clientes"
+                this.clientedatos.nombre = ""
+                this.clientedatos.documento = ""
+                this.clientedatos.email = ""
+                this.clientedatos.telefono = ""
+                this.clientedatos.direccion = ""
+                this.clientedatos.fecha_nacimiento =  ""
+               
+            }
+        },
+        cerrarModal(){
+            this.modal = 0;
+        }
+
+
+    },
+
+    created() {
+        this.listar();
+    }
+   
 }
 </script>
 
+
+
 <style scoped>
+
+@import url('../../src/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');
+@import url('../../src/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');
+@import url("../../src/plugins/datatables-buttons/css/buttons.bootstrap4.min.css");
+
+
+
+
 @import '../../src/plugins/fontawesome-free/css/all.min.css';
 @import '../../src/dist/css/adminlte.min.css';
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback");
+
+.mostrar{
+    display: list-item;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.5);
+    
+}
+
 .header1{
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -345,3 +694,5 @@ export default {
     background: #1a2226;
 }
 </style>
+
+

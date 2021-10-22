@@ -144,9 +144,9 @@
             <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
                 <li class="header1">NAVEGACIÓN PRINCIPAL</li>
-                
+               
                 <li class="nav-item">
-                     <router-link to="/" class="nav-link" exact>
+                     <router-link to="/" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             Inicio
@@ -155,7 +155,7 @@
                     </router-link>
                    
                </li>
-                <li class="nav-item">
+               <li class="nav-item">
                      <router-link to="/usuarios" class="nav-link" exact>
                         <i class="nav-icon fas fa-user-astronaut"></i>
                         <p>
@@ -165,6 +165,7 @@
                     </router-link>
                    
                </li>
+                
                 <li class="nav-item">
                     <router-link to="/categorias" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
@@ -183,7 +184,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                 <li class="nav-item">
                     <router-link to="/clientes" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
@@ -243,12 +244,12 @@
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Inicio</h1>
+                                <h1>Usuarios</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                                    <li class="breadcrumb-item active">Reporte de ventas</li>
+                                    <li class="breadcrumb-item active"></li>
                                 </ol>
                             </div>
                         </div>
@@ -262,7 +263,9 @@
                     <!-- TARJETA PRINCIPAL -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Title</h3>
+                            <button class="btn btn-primary" @click="modificar=false; abrirModal()">
+                                Agregar Usuarios
+                            </button>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -275,7 +278,51 @@
                         </div>
                         <!---TARJETA DEL CUERPO -->
                         <div class="card-body">
-                            Start creating your amazing application!
+                            <table id="example1" class="table table-bordered table-striped responsive">
+                                <thead>
+                                    <tr>
+                                        <th>id_usuario</th>
+                                        <th>nombre</th>
+                                        <th>username</th>
+                                        <th>perfil</th>
+                                        <th>foto</th>
+                                        <th>estado</th>
+                                        <th>ulltimo_ingreso</th>
+                                        <th colspan="2" class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for= "usu in usuarios" :key="usu.id_usuarios">
+                                        <th>{{usu.id_usuarios}}</th>
+                                        <td>{{usu.nombre}}</td>
+                                        <td>{{usu.username}}</td>
+                                        <td>{{usu.perfil}}</td>
+                                        <td>   
+                                        <img :src='usu.foto' class="img-circle elevation-2" alt="User Image" width="60">
+                                        </td>
+                                        <td>{{usu.estado}}</td>
+                                        <td>{{usu.ultimo_ingreso}}</td>
+                                        <td class="text-center">
+                                            <button @click="modificar=true; abrirModal(usu)" type="button" class="editar btn btn-primary"><i class = "fa fa-pencil-alt"></i></button>
+                                        </td>
+                                        <td class="text-center">
+                                            <button @click="eliminar(usu.id_usuarios,usu.nombre)" type="button" class="eliminar btn btn-danger" data-toggle="modal" data-target="#modalEliminar"><i class="fas fa-dumpster-fire"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>id_usuario</th>
+                                        <th>nombre</th>
+                                        <th>username</th>
+                                        <th>perfil</th>
+                                        <th>foto</th>
+                                        <th>estado</th>
+                                        <th>ulltimo_ingreso</th>
+                                        <th colspan="2" class="text-center">Acciones</th>
+                                    </tr>
+                                </tfoot>
+                                </table>
                         </div>
                         <!--- FIN TARJETA DEL CUERPO -->
                         <!---TARJETA DEL PIE DE PAGINA -->
@@ -290,6 +337,8 @@
             </div>
             <!-- FIN ENVOLTURA DE CONTENIDO.-->
             <!--FOOTER-->
+
+            
             <footer class="main-footer">
                 <div class="float-right d-none d-sm-block">
                     <b>Version</b> 1.0
@@ -304,28 +353,328 @@
             </aside>
             <!-- FIN BARRA LATERAL DEL CONTRO -->
         </div>
-    </body>
+
+<!--=====================================
+MODAL AGREGAR USUARIO
+======================================-->
+
+<div class="modal" :class="{mostrar:modal}">
+  
+  <div class="modal-dialog" >
+
+    <div class="modal-content">
+
+        <!--=====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+        <div class="modal-header" style="background:#3c8dbc; color:white">
+            <h5 class="modal-title ">{{tituloModal}}</h5>
+
+          <button @click="cerrarModal();" type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!--=====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+
+          <div class="box-body">
+
+            <!-- ENTRADA PARA EL NOMBRE -->
+
+          <div class="form-group">
+            
+            <div class="input-group">
+            
+            <span class="input-group-text" for="nombre"><i class="fa fa-user"></i></span>
+
+            <input v-model="usuariodatos.nombre" class="form-control input-lg" type="txt" name="nuevoNombre" placeholder="Ingresar Nombre" id="nombre" required>
+
+            </div> 
+
+          </div>
+            <!-- ENTRADA PARA EL USUARIO -->
+
+          <div class="form-group">
+            
+            <div class="input-group">
+            
+            <span class="input-group-text" for= "username"><i class="fa fa-key"></i></span>
+
+            <input v-model="usuariodatos.username" id= "username" class="form-control input-lg" type="txt"  name="nuevoUsuario"  placeholder="Ingresar Usuario" required>
+
+            </div> 
+
+          </div>
+
+          <!-- ENTRADA PARA EL CONTRASEÑA -->
+
+          <div class="form-group">
+            
+            <div class="input-group">
+            
+            <span class="input-group-text" for="password"><i class="fa fa-lock"></i></span>
+
+            <input v-model="usuariodatos.password" id="password" class="form-control input-lg" type="password" name="nuevoPassword" placeholder="Ingresar Contraseña" required>
+
+            </div> 
+
+          </div>
+
+            <!-- ENTRADA PARA EL PERFIL -->
+
+          <div class="form-group">
+            
+            <div class="input-group">
+            
+            <span class="input-group-text" for="perfil"><i class="fa fa-users"></i></span>
+
+            <select v-model="usuariodatos.perfil" id="perfil" class="form-control input-lg" name="nuevoPerfil">
+              
+              <option value=""> Seleccione Perfil</option>
+              <option value="AD">Administrador</option>
+              <option value="VEN">Vendedor</option>
+            </select>
+
+            </div> 
+
+          </div>
+          <!-- ENTRADA PARA EL ESTADO -->
+
+          <div class="form-group">
+            
+            <div class="input-group">
+            
+            <span class="input-group-text" for="estado"><i class="fa fa-users"></i></span>
+
+            <select v-model="usuariodatos.estado" id="perfil" class="form-control input-lg" name="nuevoPerfil">
+              
+              <option value=""> Seleccione estado</option>
+              <option value="AC">ACTIVO</option>
+              <option value="DES">DESACTIVADO</option>
+            </select>
+
+            </div> 
+
+          </div>
+           <!-- ENTRADA PARA LA FOTO -->
+
+          <div class="form-group">
+            
+            <div class="panel" for="foto">Subir foto</div>
+            <br>
+           
+            <input type="file"  class ="nuevaFoto" name="nuevaFoto" id="foto">
+
+            <p class="help-block">Peso maximo de la foto 200 KB</p>
+
+           <!-- <img  src="https://sistema-control-inventario.herokuapp.com/media/usuarios/default.png"  class="img-thumbnail previsualisar" width="100px">-->
+
+          </div>
+
+          </div>
+
+        </div>
+
+           
+        <!--=====================================
+        PIE DEL MODAL
+        ======================================-->
+
+        <div class="modal-footer">
+
+          <button @click="cerrarModal();" type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+
+          <button @submit="checkForm" @click="guardar();" type="submit" class="btn btn-primary">Guardar usuario</button>
+
+        </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+    
+</body>
+
      <router-view/>
 </template>
 
 
+
 <script>
+
+import axios from "axios";
+
+import $  from 'jquery';
+
+
+
 export default {
     watch: {
         $route: {
             immediate: true,
             handler(to, from) {
-                document.title = to.meta.title || 'Inicio';
+                document.title = to.meta.title || 'Usuarios';
             }
         },
     },
+    data() {
+        return{
+            usuariodatos:{
+                nombre: "",
+                username: "",
+                password: "",
+                perfil: "",
+                estado: ""
+
+            },
+         
+            id: 0,
+            modificar: true,
+            modal: 0,
+            tituloModal: '',
+            usuarios:[],
+            
+
+        }
+    },
+    methods: {
+        async listar(){
+            const res = await axios.get('https://sistema-control-inventario.herokuapp.com/usuarios/');
+            this.usuarios = res.data;
+
+        },
+        async eliminar(id, usuarios){
+            Swal.fire({
+                title: '¿Está seguro de borrar al Usuario: '+usuarios+' ?',
+                text: "¡Si no lo está puede cancelar la accíón!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si!, Eliminar Usuario!',
+                cancelButtonText: '¡Cancelar!'
+                }).then((result) => {
+                    this.listar();
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'El Usuario ha sido borrado correctamente!',
+                    '',
+                    'success'
+                    )
+                     const res =  axios.delete('https://sistema-control-inventario.herokuapp.com/usuarios/'+id+"/");
+                     this.cerrarModal();
+                     this.listar();
+                }
+                })
+        },
+        async guardar(){
+            try{
+                if(this.modificar){
+
+                    const res = await axios.put('https://sistema-control-inventario.herokuapp.com/usuarios/'+this.id+' /',this.usuariodatos)
+                    Swal.fire({
+                    position: '',
+                        icon: 'success',
+                        title: 'Usuario Editado correctamente',
+                        showConfirmButton: true,
+                    }).then((result) => {
+                        this.usuarios = res.data;
+                        this.cerrarModal();
+                        this.listar();
+                    })
+
+                }else{
+                    const res = await  axios.post('https://sistema-control-inventario.herokuapp.com/usuarios/',
+                    this.usuariodatos);
+                    Swal.fire({
+                    position: '',
+                        icon: 'success',
+                        title: 'Usuario Agregado correctamente',
+                        showConfirmButton: true,
+                    }).then((result) => {
+                        this.ususarips = res.data;
+                        this.cerrarModal();
+                        this.listar();
+                    })
+                     this.listar();
+                      
+                }
+            }catch(error){
+                Swal.fire({
+                    position: '',
+                        icon: 'info',
+                        title: '¡' + error + "!",
+                        showConfirmButton: true,
+                    })
+            }
+           
+        },
+        abrirModal(data={}){
+            this.modal = 1;
+            if(this.modificar){
+                this.id = data.id_usuarios
+                this.tituloModal = "Modificar Usuarios"
+                this.usuariodatos.nombre = data.nombre
+                this.usuariodatos.username = data.username
+                this.usuariodatos.password = data.password
+                this.usuariodatos.perfil = data.perfil
+               this.usuariodatos.estado = data.estado
+
+            }else{
+                this.id = 0
+                this.tituloModal = "Agregar Usuarios"
+                this.usuariodatos.nombre = ""
+                this.usuariodatos.username = ""
+                this.usuariodatos.password = ""
+                this.usuariodatos.perfil = ""
+                this.usuariodatos.estado = ""
+               
+            }
+        },
+        cerrarModal(){
+            this.modal = 0;
+        }
+
+
+    },
+
+    created() {
+        this.listar();
+    }
+   
 }
 </script>
 
+
+
 <style scoped>
+
+@import url('../../src/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');
+@import url('../../src/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');
+@import url("../../src/plugins/datatables-buttons/css/buttons.bootstrap4.min.css");
+
+
+
+
 @import '../../src/plugins/fontawesome-free/css/all.min.css';
 @import '../../src/dist/css/adminlte.min.css';
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback");
+
+.mostrar{
+    display: list-item;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.5);
+    
+}
+
 .header1{
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -345,3 +694,5 @@ export default {
     background: #1a2226;
 }
 </style>
+
+
