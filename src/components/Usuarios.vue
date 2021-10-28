@@ -4,14 +4,6 @@
 
         <!-- INICIO WEAPPER-->
         <div class="wrapper">
-            <!--PRECARGA DE LA PAGINA-->
-           <!-- <div class="preloader flex-column justify-content-center align-items-center">
-                <img class="animation__shake" src="../../src/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-                -->
-                <!--FIN DE LA PRECARGA-->
-            <!--</div>-->
-            <!--FIN WRAPPER-->
-
             <!-- NAVBAR O BARRA DE NAVEGACIÓN  -->
             <nav class="main-header navbar navbar-expand navbar-white navbar-light">
                 <!-- LINKS DE LA BARRA DE NAVEGACION DE LA IZQUIERDA-->
@@ -20,7 +12,7 @@
                         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="" class="nav-link">Inicio</a>
+                        <router-link to="/" class="nav-link">Inicio</router-link>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
                         <a href="#" class="nav-link">Contacto</a>
@@ -175,18 +167,18 @@
                         </p>
                    </router-link>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class=" nav-icon fas fa-truck-loading"> </i>
+                 <li class="nav-item">
+                    <router-link to="/Productos" class="nav-link">
+                        <i class="nav-icon fas fa-truck-loading"></i>
                         <p>
-                            Productos  
+                            Productos
                             <span class="badge badge-info right">New</span>
                         </p>
-                    </a>
+                   </router-link>
                 </li>
                  <li class="nav-item">
                     <router-link to="/clientes" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-user-tie"></i>
                         <p>
                             Clientes  
                             <span class="badge badge-info right">New</span>
@@ -223,13 +215,13 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                     <router-link to="/contacto" class="nav-link">
                     <i class="nav-icon fas fa-id-card"></i>
                     <p>
                         Contacto
                         <span class="right badge badge-danger">New</span>
                     </p>
-                    </a>
+                     </router-link>
                 </li>
         </ul>
             </nav>
@@ -248,8 +240,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                                    <li class="breadcrumb-item active"></li>
+                                    <li class="breadcrumb-item"><router-link to="/" class="small-box-footer">Inicio</router-link></li>
+                                    <li class="breadcrumb-item active">Usuarios</li>
                                 </ol>
                             </div>
                         </div>
@@ -277,8 +269,8 @@
                             </div>
                         </div>
                         <!---TARJETA DEL CUERPO -->
-                        <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped responsive">
+                        <div class="card-body table-responsive ">
+                            <table id="example1" class="table table-bordered table-striped ">
                                 <thead>
                                     <tr>
                                         <th>id_usuario</th>
@@ -417,7 +409,7 @@ MODAL AGREGAR USUARIO
             
             <span class="input-group-text" for="password"><i class="fa fa-lock"></i></span>
 
-            <input v-model="usuariodatos.password" id="password" class="form-control input-lg" type="password" name="nuevoPassword" placeholder="Ingresar Contraseña" required>
+            <input v-model="usuariodatos.password" id="password" class="form-control input-lg" type="text" name="nuevoPassword" placeholder="Ingresar Contraseña" required>
 
             </div> 
 
@@ -551,9 +543,9 @@ export default {
             this.usuarios = res.data;
 
         },
-        async eliminar(id, usuarios){
+        async eliminar(id, usuario){
             Swal.fire({
-                title: '¿Está seguro de borrar al Usuario: '+usuarios+' ?',
+                title: '¿Está seguro de borrar El usuario: '+usuario+' ?',
                 text: "¡Si no lo está puede cancelar la accíón!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -570,10 +562,11 @@ export default {
                     'success'
                     )
                      const res =  axios.delete('https://sistema-control-inventario.herokuapp.com/usuarios/'+id+"/");
-                     this.cerrarModal();
                      this.listar();
                 }
+                this.listar();
                 })
+                this.listar();
         },
         async guardar(){
             try{

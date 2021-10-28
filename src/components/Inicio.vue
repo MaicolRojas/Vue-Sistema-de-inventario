@@ -4,13 +4,6 @@
 
         <!-- INICIO WEAPPER-->
         <div class="wrapper">
-            <!--PRECARGA DE LA PAGINA-->
-           <!-- <div class="preloader flex-column justify-content-center align-items-center">
-                <img class="animation__shake" src="../../src/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-                -->
-                <!--FIN DE LA PRECARGA-->
-            <!--</div>-->
-            <!--FIN WRAPPER-->
 
             <!-- NAVBAR O BARRA DE NAVEGACIÓN  -->
             <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -20,7 +13,7 @@
                         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="" class="nav-link">Inicio</a>
+                        <router-link to="/" class="nav-link">Inicio</router-link>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
                         <a href="#" class="nav-link">Contacto</a>
@@ -174,18 +167,18 @@
                         </p>
                    </router-link>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class=" nav-icon fas fa-truck-loading"> </i>
+                 <li class="nav-item">
+                    <router-link to="/Productos" class="nav-link">
+                        <i class="nav-icon fas fa-truck-loading"></i>
                         <p>
                             Productos  
                             <span class="badge badge-info right">New</span>
                         </p>
-                    </a>
+                   </router-link>
                 </li>
                 <li class="nav-item">
                     <router-link to="/clientes" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-user-tie"></i>
                         <p>
                             Clientes  
                             <span class="badge badge-info right">New</span>
@@ -222,13 +215,13 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                     <router-link to="/contacto" class="nav-link">
                     <i class="nav-icon fas fa-id-card"></i>
                     <p>
                         Contacto
                         <span class="right badge badge-danger">New</span>
                     </p>
-                    </a>
+                     </router-link>
                 </li>
         </ul>
             </nav>
@@ -238,55 +231,93 @@
         </aside>
             <!-- ENVOLTURA DE CONTENIDO. CONTIENE EL CONTENIDO DE LA PÁGINA-->
             <div class="content-wrapper">
-                <!-- CONTENIDO DEL HEADER -->
-                <section class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1>Inicio</h1>
-                            </div>
-                            <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                                    <li class="breadcrumb-item active">Reporte de ventas</li>
-                                </ol>
-                            </div>
-                        </div>
+                
+                <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Dashboard</h1>
                     </div>
-                </section>
-                <!-- FIN CONTENIDO DEL HEADER  -->
-
-                <!-- CONTENIDO PRINCIPAL -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><router-link to="/" class="small-box-footer">Inicio</router-link></li>
+                        <li class="breadcrumb-item active">Inicio</li>
+                        </ol>
+                    </div>
+                    </div>
+                </div>
+                </div>
+           
+             
                 <section class="content">
+                <div class="container-fluid">
+               
+                    <div class="row">
+                    <div class="col-lg-3 col-6">
+                   
+                        <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>3</h3>
 
-                    <!-- TARJETA PRINCIPAL -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Title</h3>
-
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
+                            <p>Nuevos Usuarios</p>
                         </div>
-                        <!---TARJETA DEL CUERPO -->
-                        <div class="card-body">
-                            Start creating your amazing application!
+                        <div class="icon">
+                            <i class="ion ion-person-stalker"></i>
                         </div>
-                        <!--- FIN TARJETA DEL CUERPO -->
-                        <!---TARJETA DEL PIE DE PAGINA -->
-                        <div class="card-footer">
-                            Footer
+                        <router-link to="/usuarios" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></router-link>
                         </div>
-                        <!---FIN TARJETA DEL PIE DE PAGINA -->
                     </div>
-                    <!-- FIN DE LA TARJETA -->
+                
+                    <div class="col-lg-3 col-6">
+                    
+                        <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>5<sup style="font-size: 20px"></sup></h3>
+
+                            <p>Categorias</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion ion-clipboard"></i>
+                        </div>
+                       <router-link to="/categorias" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></router-link>
+                        </div>
+                    </div>
+                   
+                    <div class="col-lg-3 col-6">
+                       
+                        <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>10</h3>
+
+                            <p>Productos</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion ion-ios-cart"></i>
+                        </div>
+                        <router-link to="/productos" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></router-link>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-6">
+                        
+                        <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>4</h3>
+
+                            <p>clientes</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-cash"></i>
+                        </div>
+                       <router-link to="/clientes" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></router-link>
+                        </div>
+                    </div>
+                   
+                    </div>
+                   
+                </div>
                 </section>
-                <!-- FIN DEL CONTENIDO PRINCIPAL -->
+               
             </div>
             <!-- FIN ENVOLTURA DE CONTENIDO.-->
             <!--FOOTER-->
@@ -310,6 +341,7 @@
 
 
 <script>
+
 export default {
     watch: {
         $route: {
@@ -319,10 +351,13 @@ export default {
             }
         },
     },
+    
+    
 }
 </script>
 
 <style scoped>
+@import url("https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css");
 @import '../../src/plugins/fontawesome-free/css/all.min.css';
 @import '../../src/dist/css/adminlte.min.css';
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback");

@@ -4,7 +4,7 @@
 
         <!-- INICIO WEAPPER-->
         <div class="wrapper">
-
+           
             <!-- NAVBAR O BARRA DE NAVEGACIÓN  -->
             <nav class="main-header navbar navbar-expand navbar-white navbar-light">
                 <!-- LINKS DE LA BARRA DE NAVEGACION DE LA IZQUIERDA-->
@@ -13,7 +13,7 @@
                         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                       <router-link to="/" class="nav-link">Inicio</router-link>
+                        <router-link to="/" class="nav-link">Inicio</router-link>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
                         <a href="#" class="nav-link">Contacto</a>
@@ -148,7 +148,7 @@
                     </router-link>
                    
                </li>
-                <li class="nav-item">
+               <li class="nav-item">
                      <router-link to="/usuarios" class="nav-link" exact>
                         <i class="nav-icon fas fa-user-astronaut"></i>
                         <p>
@@ -158,6 +158,7 @@
                     </router-link>
                    
                </li>
+                
                 <li class="nav-item">
                     <router-link to="/categorias" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
@@ -167,7 +168,7 @@
                         </p>
                    </router-link>
                 </li>
-                <li class="nav-item">
+                 <li class="nav-item">
                     <router-link to="/Productos" class="nav-link">
                         <i class="nav-icon fas fa-truck-loading"></i>
                         <p>
@@ -214,7 +215,7 @@
                     </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+               <li class="nav-item">
                      <router-link to="/contacto" class="nav-link">
                     <i class="nav-icon fas fa-id-card"></i>
                     <p>
@@ -236,12 +237,12 @@
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Categorias</h1>
+                                <h1>Productos</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><router-link to="/" class="small-box-footer">Inicio</router-link></li>
-                                    <li class="breadcrumb-item active">Categorias</li>
+                                   <li class="breadcrumb-item"><router-link to="/" class="small-box-footer">Inicio</router-link></li>
+                                    <li class="breadcrumb-item active">Productos</li>
                                 </ol>
                             </div>
                         </div>
@@ -256,7 +257,7 @@
                     <div class="card">
                         <div class="card-header">
                             <button class="btn btn-primary" @click="modificar=false; abrirModal()">
-                                Agregar Categorías
+                                Agregar Producto
                             </button>
 
                             <div class="card-tools">
@@ -269,34 +270,54 @@
                             </div>
                         </div>
                         <!---TARJETA DEL CUERPO -->
-                        <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
+                        <div class="card-body table-responsive ">
+                            <table id="example1" class="table table-bordered table-striped ">
                                 <thead>
                                     <tr>
-                                        <th>Id_categoria</th>
-                                        <th>Categoria</th>
-                                        <th>Fecha(s)</th>
+                                        <th>id_producto</th>
+                                        <th>imagen</th>
+                                        <th>código</th>
+                                        <th>producto</th>
+                                        <th>categoria</th>
+                                        <th>stock</th>
+                                        <th>precio_compra</th>
+                                        <th>precio_venta</th>
+                                        <th>fecha</th>
                                         <th colspan="2" class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for= "cat in categorias" :key="cat.id_categoria">
-                                        <th>{{cat.id_categoria}}</th>
-                                        <td>{{cat.categoria}}</td>
-                                        <td>{{cat.fecha}}</td>
+                                    <tr v-for= "pro in productos" :key="pro.id_productos">
+                                        <th>{{pro.id_productos}}</th>
+                                        <td>   
+                                        <img :src='pro.imagen' class="img-circle elevation-2" alt="Product Image" width="60">
+                                        </td>
+                                        <td>{{pro.codigo}}</td>
+                                        <td>{{pro.producto}}</td>
+                                        <td>{{pro.categoria}}</td>
+                                        <td>{{pro.stock}}</td>
+                                        <td>{{pro.precio_compra}}</td>
+                                        <td>{{pro.precio_venta}}</td>
+                                        <td>{{pro.fecha}}</td>
                                         <td class="text-center">
-                                            <button @click="modificar=true; abrirModal(cat)" type="button" class="editar btn btn-primary"><i class = "fa fa-pencil-alt"></i></button>
+                                            <button @click="modificar=true; abrirModal(pro)" type="button" class="editar btn btn-primary"><i class = "fa fa-pencil-alt"></i></button>
                                         </td>
                                         <td class="text-center">
-                                            <button @click="eliminar(cat.id_categoria,cat.categoria)" type="button" class="eliminar btn btn-danger" data-toggle="modal" data-target="#modalEliminar"><i class="fas fa-dumpster-fire"></i></button>
+                                            <button @click="eliminar(pro.id_productos,pro.producto)" type="button" class="eliminar btn btn-danger" data-toggle="modal" data-target="#modalEliminar"><i class="fas fa-dumpster-fire"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Id_categoria</th>
-                                        <th>Categoria</th>
-                                        <th>Fecha(s)</th>
+                                       <th>id_producto</th>
+                                        <th>imagen</th>
+                                        <th>código</th>
+                                        <th>producto</th>
+                                        <th>categoria</th>
+                                        <th>stock</th>
+                                        <th>precio_compra</th>
+                                        <th>precio_venta</th>
+                                        <th>fecha</th>
                                         <th colspan="2" class="text-center">Acciones</th>
                                     </tr>
                                 </tfoot>
@@ -333,7 +354,7 @@
         </div>
 
 <!--=====================================
-MODAL AGREGAR CATEGORIAS
+MODAL AGREGAR USUARIO
 ======================================-->
 
 <div class="modal" :class="{mostrar:modal}">
@@ -359,14 +380,148 @@ MODAL AGREGAR CATEGORIAS
         <div class="modal-body">
 
           <div class="box-body">
+              <!-- ENTRADA PARA SELECCIONAR LA CATEGORIA -->
 
-            <!-- ENTRADA PARA EL NOMBRE -->
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-text" for="categorias"><i class="fa fa-th"></i></span> 
+
+                <select v-model="productosdatos.id_categoria" class="form-control input-lg" id="categorias" name="nuevaCategoria" >
+                    
+                     <option value=""> Seleccione Categoria</option>
+
+                   <option v-for="cat in categorias" :key="cat.id_categoria"  :value="cat.id_categoria">{{cat.categoria}}</option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+             <!-- ENTRADA PARA EL CODIGO -->
             
             <div class="form-group">
-              <div class="input-group mb-3">
-                  <span class="input-group-text" for="categoria"><i class="nav-icon fas fa-th"></i></span> 
-                <input v-model="categoriadatos.categoria" type="text" class="form-control input-lg" id="categoria"  placeholder="Ingresar Categoría" required>
+              
+              <div class="input-group">
+              
+                <span class="input-group-text"><i class="fa fa-code" for="codigo"></i></span> 
+
+                <input v-model="productosdatos.codigo" type="text" class="form-control input-lg" id="codigo" name="editarCodigo"  required placeholder="Ingresar Código">
+
               </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL NOMBRE DEL PRODUCTO -->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-text" for= "roducto"><i class="fas fa-truck-loading"></i></span> 
+
+                <input v-model="productosdatos.producto" type="text" class="form-control input-lg" name="editarDescripcion" id="producto" placeholder="Ingresar Nombre del producto" required>
+
+              </div>
+
+            </div>
+
+          <!-- ENTRADA PARA EL STOCK -->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-text" for="stock"><i class="fa fa-check"></i></span> 
+
+                <input v-model="productosdatos.stock" type="number" placeholder="Stock" class="form-control input-lg" min="0" name="editarStock" id="stock" required>
+
+              </div>
+
+            </div>
+
+
+             <!-- ENTRADA PARA EL PRECIO COMPRA -->
+
+             <div class="form-group row">
+              
+              <div class="col-xs-12 col-sm-6">
+
+                <div class="input-group">
+                
+                  <span class="input-group-text" for="precio_compra"><i class="fa fa-arrow-up"></i></span> 
+
+                  <input v-model="productosdatos.precio_compra" placeholder="Precio de Compra" type="number" class="form-control input-lg" min="0" id="precio_compra"  name="editarPrecioCompra" step="any" required>
+
+                </div>
+                <br>
+
+              </div>      
+            <!-- ENTRADA PARA EL PRECIO VENTA -->
+              <div class="col-xs-12 col-sm-6">
+
+                <div class="input-group">
+                
+                  <span class="input-group-text" for="precio_venta"><i class="fa fa-arrow-down"></i></span> 
+
+                  <input v-model="productosdatos.precio_venta" placeholder="Precio de venta" type="number" class="form-control input-lg" min="0" id="precio_venta" name="editarPrecioVenta" step="any" required >
+
+                </div>
+                <input v-model="productosdatos.id_categoria" id="prodId" name="id_categoria" type="hidden" >
+                <br>
+
+                <!-- CHECKBOX PARA PORCENTAJE -->
+
+                <!--<div class="col-xs-6">
+
+                  <div class="form-group">
+
+                    <label >
+                      <input type="checkbox" class="minimal porcentaje" checked>
+                      Utilizar Porcentaje
+                    </label>
+                    
+                  </div>
+                  
+                </div>-->
+
+                <!-- ENTRADA PARA PORCENTAJE -->
+
+                <!--<div class="col-xs-6" style="padding: 0">
+
+                  <div class="input-group">
+                    
+                    <input type="number" class="form-control col-lg-6   nuevoPorcentaje" min="0" value="40" required="">
+
+                    <span class="input-group-text"><i class="fa fa-percent"></i></span>
+                  </div>
+
+                </div>-->
+
+
+            </div>
+
+          </div>
+
+
+            <!-- ENTRADA PARA SUBIR FOTO -->
+
+             <div class="form-group">
+              
+              <div class="panel">SUBIR IMAGEN</div>
+              <br>
+
+              <input type="file" class="nuevaImagen" name="editarImagen">
+
+              <p class="help-block">Peso máximo de la imagen 2 MB</p>
+
+
+              <!--<img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualisar" id="act" width="100px">-->
+
+              <input type="hidden" name="imagenActual" id="imagenActual">
+
             </div>
 
           </div>
@@ -382,7 +537,7 @@ MODAL AGREGAR CATEGORIAS
 
           <button @click="cerrarModal();" type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button @submit="checkForm" @click="guardar();" type="submit" class="btn btn-primary">Guardar Categoría</button>
+          <button @submit="checkForm" @click="guardar();" type="submit" class="btn btn-primary">Guardar usuario</button>
 
         </div>
 
@@ -394,7 +549,11 @@ MODAL AGREGAR CATEGORIAS
 
 
 
-
+<!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
     
 </body>
 
@@ -407,90 +566,108 @@ MODAL AGREGAR CATEGORIAS
 
 import axios from "axios";
 
-import $  from 'jquery';
-
-
-
 export default {
     watch: {
         $route: {
             immediate: true,
             handler(to, from) {
-                document.title = to.meta.title || 'Categorias';
+                document.title = to.meta.title || 'Productos';
             }
         },
     },
     data() {
         return{
-            categoriadatos: {
-                categoria: '',
+    
+            productosdatos:{
+                id_producto: "",
+                codigo: "",
+                producto: "",
+                stock: "",
+                precio_compra: "",
+                precio_venta : "",
+                id_categoria: "",
+               
             },
+         
             id: 0,
             modificar: true,
             modal: 0,
             tituloModal: '',
+            productos:[],
             categorias:[],
+            a : "",
         }
     },
     methods: {
-        async listar(){
-            const res = await axios.get('https://sistema-control-inventario.herokuapp.com/categoria/');
+        async listarcategorias(){
+            const res = await axios.get('http://localhost:8000/categoria/');
             this.categorias = res.data;
+            console.log(this.categorias)
 
         },
-        async eliminar(id, categoria){
+        async listar(){
+            const res = await axios.get('http://localhost:8000/productos/');
+            this.productos = res.data;
+            console.log(this.productos)
+
+        },
+       
+        async eliminar(id, producto){
             Swal.fire({
-                title: '¿Está seguro de borrar la categoria: '+categoria+' ?',
+                title: '¿Está seguro de borrar El usuario: '+producto+' ?',
                 text: "¡Si no lo está puede cancelar la accíón!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Si!, Eliminar categoria!',
+                confirmButtonText: 'Si!, Eliminar Producto!',
                 cancelButtonText: '¡Cancelar!'
                 }).then((result) => {
                     this.listar();
                 if (result.isConfirmed) {
                     Swal.fire(
-                    'La categoría ha sido borrado correctamente!',
+                    'El Producto ha sido borrado correctamente!',
                     '',
                     'success'
                     )
-                     const res =  axios.delete('https://sistema-control-inventario.herokuapp.com/categoria/'+id+"/");
+                     const res =  axios.delete('http://localhost:8000/productos/'+id+"/");
                      this.listar();
                 }
-                })
                 this.listar();
+                })
+
         },
         async guardar(){
             try{
                 if(this.modificar){
 
-                    const res = await axios.put('https://sistema-control-inventario.herokuapp.com/categoria/'+this.id+' /',this.categoriadatos)
+                    const res = await axios.put('http://localhost:8000/productos/'+this.id+' /',this.productosdatos)
                     Swal.fire({
                     position: '',
                         icon: 'success',
-                        title: 'Categoría Editada correctamente',
+                        title: 'Usuario Editado correctamente',
                         showConfirmButton: true,
                     }).then((result) => {
-                        this.categorias = res.data;
+                        this.productos = res.data;
                         this.cerrarModal();
                         this.listar();
                     })
+                    this.listar();
 
                 }else{
-                    const res = await  axios.post('https://sistema-control-inventario.herokuapp.com/categoria/',
-                    this.categoriadatos);
+                    const res = await  axios.post('http://localhost:8000/productos/',
+                    this.productosdatos);
                     Swal.fire({
                     position: '',
                         icon: 'success',
-                        title: 'Categoría Agregada correctamente',
+                        title: 'Usuario Agregado correctamente',
                         showConfirmButton: true,
                     }).then((result) => {
-                        this.categorias = res.data;
+                       
                         this.cerrarModal();
                         this.listar();
                     })
+                     this.listar();
                       
                 }
             }catch(error){
@@ -506,14 +683,27 @@ export default {
         abrirModal(data={}){
             this.modal = 1;
             if(this.modificar){
-                this.id = data.id_categoria
-                this.tituloModal = "Modificar Categoría"
-                this.categoriadatos.categoria = data.categoria
-
+                this.id = data.id_productos
+                this.tituloModal = "Modificar Productos"
+                this.productosdatos.codigo = data.codigo
+                this.productosdatos.producto = data.producto
+                this.productosdatos.stock = data.stock
+                this.productosdatos.precio_compra = data.precio_compra
+                this.productosdatos.precio_venta = data.precio_venta
+                this.productosdatos.id_categoria = data.id_categoria
+               
             }else{
                 this.id = 0
-                this.tituloModal = "Agregar Categoría"
-                this.categoriadatos.categoria = ''
+                this.tituloModal = "Agregar Productos"
+                this.productosdatos.codigo = ""
+                this.productosdatos.producto = ""
+                this.productosdatos.stock = "" 
+                this.productosdatos.precio_compra = ""
+                this.productosdatos.precio_venta = ""
+                this.productosdatos.id_categoria = this.data.id_categoria
+                
+                
+               
             }
         },
         cerrarModal(){
@@ -525,6 +715,7 @@ export default {
 
     created() {
         this.listar();
+        this.listarcategorias();
     }
    
 }
