@@ -98,7 +98,6 @@
 
 <style scoped>
 @import url('https://kit.fontawesome.com/64d58efce2.js');
-@import '../../src/plugins/Login/style.css';
 </style>
 
 <script>

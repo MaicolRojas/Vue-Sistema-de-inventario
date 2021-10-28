@@ -1,4 +1,4 @@
-# frontend
+# sistema-de-control-inventario
 
 ## Project setup
 ```
@@ -13,6 +13,21 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
+```
+
+### Instalar Axios 
+```
+ npm install axios
+```
+
+### Instalar JQuery 
+```
+  npm install --save jquery 
+```
+
+### Instalar sweetalert2 
+```
+npm i vue-sweetalert2 
 ```
 
 ### Customize configuration

@@ -407,10 +407,6 @@ MODAL AGREGAR CATEGORIAS
 
 import axios from "axios";
 
-import $  from 'jquery';
-
-
-
 export default {
     watch: {
         $route: {
@@ -533,13 +529,6 @@ export default {
 
 
 <style scoped>
-
-@import url('../../src/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');
-@import url('../../src/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');
-@import url("../../src/plugins/datatables-buttons/css/buttons.bootstrap4.min.css");
-
-
-
 
 @import '../../src/plugins/fontawesome-free/css/all.min.css';
 @import '../../src/dist/css/adminlte.min.css';
