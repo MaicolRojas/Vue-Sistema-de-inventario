@@ -600,13 +600,13 @@ export default {
     },
     methods: {
         async listarcategorias(){
-            const res = await axios.get('http://localhost:8000/categoria/');
+            const res = await axios.get('https://sistema-control-inventario.herokuapp.com/categoria/');
             this.categorias = res.data;
             console.log(this.categorias)
 
         },
         async listar(){
-            const res = await axios.get('http://localhost:8000/productos/');
+            const res = await axios.get('https://sistema-control-inventario.herokuapp.com/productos/');
             this.productos = res.data;
             console.log(this.productos)
 
@@ -630,7 +630,7 @@ export default {
                     '',
                     'success'
                     )
-                     const res =  axios.delete('http://localhost:8000/productos/'+id+"/");
+                     const res =  axios.delete('https://sistema-control-inventario.herokuapp.com/productos/'+id+"/");
                      this.listar();
                 }
                 this.listar();
@@ -641,7 +641,7 @@ export default {
             try{
                 if(this.modificar){
 
-                    const res = await axios.put('http://localhost:8000/productos/'+this.id+' /',this.productosdatos)
+                    const res = await axios.put('https://sistema-control-inventario.herokuapp.com/productos/'+this.id+' /',this.productosdatos)
                     Swal.fire({
                     position: '',
                         icon: 'success',
@@ -655,7 +655,7 @@ export default {
                     this.listar();
 
                 }else{
-                    const res = await  axios.post('http://localhost:8000/productos/',
+                    const res = await  axios.post('https://sistema-control-inventario.herokuapp.com/productos/',
                     this.productosdatos);
                     Swal.fire({
                     position: '',
