@@ -288,13 +288,13 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for= "pro in productos" :key="pro.id_productos">
-                                        <th>{{pro.id_productos}}</th>
+                                       <th>{{pro.id_productos}}</th>
                                         <td>   
                                         <img :src='pro.imagen' class="img-circle elevation-2" alt="Product Image" width="60">
                                         </td>
                                         <td>{{pro.codigo}}</td>
-                                        <td>{{pro.producto}}</td>
-                                        <td>{{pro.categoria}}</td>
+                                        <td >{{pro.producto}}</td>
+                                        <td class="text-center"> <router-link to="/categorias" class="nav-link">{{pro.id_categoria}}</router-link></td>
                                         <td>{{pro.stock}}</td>
                                         <td>{{pro.precio_compra}}</td>
                                         <td>{{pro.precio_venta}}</td>
@@ -326,7 +326,7 @@
                         <!--- FIN TARJETA DEL CUERPO -->
                         <!---TARJETA DEL PIE DE PAGINA -->
                         <div class="card-footer">
-                            Footer
+                           <tr v-for= "p in prue" :key="p.id_categoria">{{p}}</tr>
                         </div>
                         <!---FIN TARJETA DEL PIE DE PAGINA -->
                     </div>
@@ -595,21 +595,27 @@ export default {
             tituloModal: '',
             productos:[],
             categorias:[],
-            a : "",
+            prue :[],
         }
     },
     methods: {
         async listarcategorias(){
             const res = await axios.get('https://sistema-control-inventario.herokuapp.com/categoria/');
             this.categorias = res.data;
-            console.log(this.categorias)
-
+            
+            /*for(this.prue in this.categorias){
+          
+                for(this.prues in this.productos){
+                  const resultado = this.categorias.find( categorias => categorias.id_categoria === this.productos[this.prue].id_categoria);
+                      this.prue = resultado;
+                }
+               
+            }*/
+           
         },
         async listar(){
             const res = await axios.get('https://sistema-control-inventario.herokuapp.com/productos/');
             this.productos = res.data;
-            console.log(this.productos)
-
         },
        
         async eliminar(id, producto){
