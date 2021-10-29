@@ -259,7 +259,7 @@
                         <div class="inner">
                             <h3>3</h3>
 
-                            <p>Nuevos Usuarios</p>
+                            <p>Usuarios</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-stalker"></i>
@@ -272,7 +272,7 @@
                     
                         <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>5<sup style="font-size: 20px"></sup></h3>
+                            <h3>3<sup style="font-size: 20px"></sup></h3>
 
                             <p>Categorias</p>
                         </div>
@@ -287,7 +287,7 @@
                        
                         <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>10</h3>
+                            <h3>4</h3>
 
                             <p>Productos</p>
                         </div>
@@ -302,7 +302,7 @@
                         
                         <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>4</h3>
+                            <h3>2</h3>
 
                             <p>clientes</p>
                         </div>
