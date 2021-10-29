@@ -409,7 +409,7 @@ MODAL AGREGAR USUARIO
             
             <span class="input-group-text" for="password"><i class="fa fa-lock"></i></span>
 
-            <input v-model="usuariodatos.password" id="password" class="form-control input-lg" type="text" name="nuevoPassword" placeholder="Ingresar Contraseña" required>
+            <input v-model="usuariodatos.password" id="password" class="form-control input-lg" type="password" name="nuevoPassword" placeholder="Ingresar Contraseña" required>
 
             </div> 
 
