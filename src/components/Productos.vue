@@ -288,13 +288,14 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for= "pro in productos" :key="pro.id_productos">
+
                                        <th>{{pro.id_productos}}</th>
                                         <td>   
                                         <img :src='pro.imagen' class="img-circle elevation-2" alt="Product Image" width="60">
                                         </td>
                                         <td>{{pro.codigo}}</td>
                                         <td >{{pro.producto}}</td>
-                                        <td class="text-center"> <router-link to="/categorias" class="nav-link">{{pro.id_categoria}}</router-link></td>
+                                        <td class="text-justify"> <router-link to="/categorias" class="nav-link">{{findCategory(pro.id_categoria)}}</router-link></td>    
                                         <td>{{pro.stock}}</td>
                                         <td>{{pro.precio_compra}}</td>
                                         <td>{{pro.precio_venta}}</td>
@@ -613,9 +614,16 @@ export default {
             }*/
            
         },
-        async listar(){
+        findCategory(id){
+            const findCategory = this.categorias.find(category=>category.id_categoria===id)?.categoria
+           //this.prue = findCategory
+           return (findCategory)
+        },
+        async listar(id){
             const res = await axios.get('https://sistema-control-inventario.herokuapp.com/productos/');
             this.productos = res.data;
+
+            
         },
        
         async eliminar(id, producto){
